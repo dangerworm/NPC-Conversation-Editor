@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +14,7 @@ using System.Xml.Serialization;
 using ConversationEditor.Mappers;
 using ConversationEditor.Models;
 using ConversationEditor.UserControls;
+using ConversationEditor.XmlClasses;
 
 namespace ConversationEditor
 {
@@ -23,7 +25,8 @@ namespace ConversationEditor
             InitializeComponent();
 
             ofdOpen.DefaultExt = "xml";
-            ofdOpen.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //ofdOpen.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            ofdOpen.InitialDirectory = Directory.GetCurrentDirectory();
             ofdOpen.Filter = "XML Files|*.xml|Text Files|*.txt|All Files|*.*";
         }
         
@@ -47,6 +50,26 @@ namespace ConversationEditor
             CreateNewTabPage(npcSettings);
         }
 
+        private void tsmSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmCloseTab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmExit_Click(object sender, EventArgs e)
+        {
+            foreach (TabPage tabPage in tbcNpcTabs.TabPages)
+            {
+                CheckSavedStatus(tabPage);
+            }
+
+            Close();
+        }
+
         private void CreateNewTabPage(NpcSettingsModel npcSettings = null)
         {
             if (npcSettings == null)
@@ -55,13 +78,39 @@ namespace ConversationEditor
             }
 
             var tabPage = new TabPage();
+            var addPage = true;
+
+            foreach (TabPage page in tbcNpcTabs.TabPages)
+            {
+                var userControl = page.Controls[0] as NpcSettingsUserControl;
+                if (userControl == null || userControl.NpcSettings.Name != npcSettings.Name)
+                {
+                    continue;
+                }
+
+                var overwriteResult = MessageBox.Show(
+                    $@"This will overwrite the current settings for {npcSettings.Name}. Do you want to continue?",
+                    @"Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (overwriteResult == DialogResult.No)
+                {
+                    return;
+                }
+
+                tabPage = page;
+                tabPage.Controls.Clear();
+                addPage = false;
+                break;
+            }
+
             var npcSettingsControl = new NpcSettingsUserControl(npcSettings);
-            var fileName = Path.GetFileNameWithoutExtension(ofdOpen.FileName) ?? new Guid().ToString();
-            tabPage.Name = $"tpg{fileName.Replace(" ", "-")}";
-            tabPage.DataBindings.Add(new Binding("Text", npcSettings, "name"));
             tabPage.Controls.Add(npcSettingsControl);
 
-            tbcNpcTabs.TabPages.Add(tabPage);
+            if (addPage)
+            {
+                tabPage.DataBindings.Add(new Binding("Text", npcSettings, "name"));
+                tbcNpcTabs.TabPages.Add(tabPage);
+            }
         }
 
         private bool SelectFileToOpen()
@@ -82,9 +131,26 @@ namespace ConversationEditor
             return true;
         }
 
+        private void CheckSavedStatus(Control tabPage)
+        {
+            var userControl = tabPage.Controls[0] as NpcSettingsUserControl;
+            if (userControl == null || !userControl.NpcSettings.IsDirty)
+            {
+                return;
+            }
+
+            tabPage.Show();
+
+            var saveResult = sfdSave.ShowDialog();
+            if (saveResult == DialogResult.Cancel)
+            {
+                return;
+            }
+        }
+
         private static void ShowError(string message)
         {
-            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

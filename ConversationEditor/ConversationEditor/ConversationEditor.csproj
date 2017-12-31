@@ -46,23 +46,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Case.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Case.Designer.cs">
+      <DependentUpon>Case.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mappers\NpcStateCaseMapper.cs" />
     <Compile Include="Mappers\NpcSettingsMapper.cs" />
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\NpcSettingsModel.cs" />
+    <Compile Include="Models\NpcCaseModel.cs" />
     <Compile Include="UserControls\NpcSettingsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\NpcSettingsUserControl.Designer.cs">
       <DependentUpon>NpcSettingsUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="XmlDataClasses.cs" />
+    <Compile Include="XmlClasses\PhobosData.cs" />
+    <Compile Include="XmlClasses\PhobosDataCase.cs" />
+    <Compile Include="XmlClasses\PhobosDataDefine.cs" />
+    <Compile Include="XmlClasses\PhobosDataMinMax.cs" />
+    <Compile Include="XmlClasses\PhobosDataNpc.cs" />
+    <Compile Include="XmlClasses\PhobosDataActions.cs" />
+    <Compile Include="XmlClasses\PhobosDataRequire.cs" />
+    <Compile Include="XmlClasses\PhobosDataNpcConfig.cs" />
+    <Compile Include="XmlClasses\PhobosDataIdX.cs" />
+    <Compile Include="XmlClasses\PhobosDataNpcLook.cs" />
+    <Compile Include="XmlClasses\PhobosDataNpcStats.cs" />
+    <Compile Include="XmlClasses\PhobosDataState.cs" />
+    <Compile Include="XmlClasses\PhobosDataText.cs" />
+    <Compile Include="XmlClasses\PhobosDataTrack.cs" />
+    <Compile Include="XmlClasses\PhobosDataWidthHeight.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Case.resx">
+      <DependentUpon>Case.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -79,6 +105,7 @@
       <DependentUpon>NpcSettingsUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\ConversationEditor.Models.NpcSettingsModel.datasource" />
+    <None Include="Properties\DataSources\ConversationEditor.Models.NpcStateCaseModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

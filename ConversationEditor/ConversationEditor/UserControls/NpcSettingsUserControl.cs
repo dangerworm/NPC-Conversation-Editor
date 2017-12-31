@@ -8,6 +8,8 @@ namespace ConversationEditor.UserControls
     {
         public NpcSettingsModel NpcSettings;
 
+        private string Key => (string)lstPrefabs.Items[lstPrefabs.SelectedIndex];
+
         public NpcSettingsUserControl(NpcSettingsModel npcSettings)
         {
             if (npcSettings == null)
@@ -32,8 +34,7 @@ namespace ConversationEditor.UserControls
 
             if (lstPrefabs.Items.Count > 0)
             {
-                var key = (string)lstPrefabs.Items[lstPrefabs.SelectedIndex];
-                txtPrefabMatches.Text = NpcSettings.GetPrefabMatches(key);
+                txtPrefabMatches.Text = NpcSettings.GetPrefabMatches(Key);
             }
         }
 
@@ -63,9 +64,20 @@ namespace ConversationEditor.UserControls
 
         private void btnRemovePrefab_Click(object sender, EventArgs e)
         {
-            var key = (string)lstPrefabs.Items[lstPrefabs.SelectedIndex];
-            NpcSettings.RemovePrefabMatches(key);
-            lstPrefabs.Items.Remove(key);
+            NpcSettings.RemovePrefabMatches(Key);
+            lstPrefabs.Items.Remove(Key);
+        }
+
+        private void txtPrefabMatches_Leave(object sender, EventArgs e)
+        {
+            NpcSettings.SetPrefabMatches(Key, txtPrefabMatches.Text);
+        }
+
+        private void btnAddCase_Click(object sender, EventArgs e)
+        {
+            var caseModel = new NpcCaseModel(NpcSettings.PrefabIds);
+            var caseForm = new Case(caseModel);
+            caseForm.Show();
         }
     }
 }

@@ -36,6 +36,8 @@
             this.tsmSave = new System.Windows.Forms.ToolStripMenuItem();
             this.ofdOpen = new System.Windows.Forms.OpenFileDialog();
             this.sfdSave = new System.Windows.Forms.SaveFileDialog();
+            this.tsmCloseTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +64,9 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmNew,
             this.tsmOpen,
-            this.tsmSave});
+            this.tsmSave,
+            this.tsmCloseTab,
+            this.tsmExit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
@@ -86,10 +90,21 @@
             this.tsmSave.Name = "tsmSave";
             this.tsmSave.Size = new System.Drawing.Size(152, 22);
             this.tsmSave.Text = "&Save";
+            this.tsmSave.Click += new System.EventHandler(this.tsmSave_Click);
             // 
-            // ofdOpen
+            // tsmCloseTab
             // 
-            this.ofdOpen.FileName = "openFileDialog1";
+            this.tsmCloseTab.Name = "tsmCloseTab";
+            this.tsmCloseTab.Size = new System.Drawing.Size(152, 22);
+            this.tsmCloseTab.Text = "&Close Tab";
+            this.tsmCloseTab.Click += new System.EventHandler(this.tsmCloseTab_Click);
+            // 
+            // tsmExit
+            // 
+            this.tsmExit.Name = "tsmExit";
+            this.tsmExit.Size = new System.Drawing.Size(152, 22);
+            this.tsmExit.Text = "E&xit";
+            this.tsmExit.Click += new System.EventHandler(this.tsmExit_Click);
             // 
             // Main
             // 
@@ -118,6 +133,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmSave;
         private System.Windows.Forms.OpenFileDialog ofdOpen;
         private System.Windows.Forms.SaveFileDialog sfdSave;
+        private System.Windows.Forms.ToolStripMenuItem tsmCloseTab;
+        private System.Windows.Forms.ToolStripMenuItem tsmExit;
     }
 }
 

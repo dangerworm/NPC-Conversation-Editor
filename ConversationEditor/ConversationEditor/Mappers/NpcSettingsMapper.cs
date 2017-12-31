@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using ConversationEditor.Models;
+using ConversationEditor.XmlClasses;
 
 namespace ConversationEditor.Mappers
 {
@@ -22,17 +23,27 @@ namespace ConversationEditor.Mappers
                 Attacked = npcData.npc.attacked.text
             };
 
-            var prefabIds = npcData.npc.define.Select(x => x.id);
+            var prefabIds = npcData.npc.define.Select(x => x.id).ToArray();
             foreach (var prefabId in prefabIds)
             {
                 var defineSection = npcData.npc.define.First(x => x.id.Equals(prefabId));
                 model.SetPrefabMatches(defineSection.id, defineSection.require);
             }
-            
+
+            foreach (var state in npcData.npc.state)
+            {
+                foreach (var stateCase in state.@case)
+                {
+                    var caseModel = stateCase.Map(prefabIds);
+                    model.AddStateCase(state.id, caseModel);
+                }
+            }
+
             return model;
         }
 
-        public static PhobosData Map(this NpcSettingsModel npcSettings, PhobosData phobosData)
+        public static void Map(this NpcSettingsModel npcSettings, 
+            ref PhobosData phobosData)
         {
             phobosData.npc.config.name = npcSettings.Name;
             phobosData.npc.config.title = npcSettings.Title;
@@ -46,8 +57,6 @@ namespace ConversationEditor.Mappers
             phobosData.npc.talking.text = npcSettings.Talking;
             phobosData.npc.leaving.text = npcSettings.Leaving;
             phobosData.npc.attacked.text = npcSettings.Attacked;
-
-            return phobosData;
         }
     }
 }

@@ -57,12 +57,13 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.grpPrefabs = new System.Windows.Forms.GroupBox();
-            this.lstPrefabs = new System.Windows.Forms.ListBox();
-            this.txtPrefabMatches = new System.Windows.Forms.TextBox();
-            this.btnAddPrefab = new System.Windows.Forms.Button();
-            this.btnRemovePrefab = new System.Windows.Forms.Button();
             this.txtNewPrefab = new System.Windows.Forms.TextBox();
+            this.btnRemovePrefab = new System.Windows.Forms.Button();
+            this.btnAddPrefab = new System.Windows.Forms.Button();
+            this.txtPrefabMatches = new System.Windows.Forms.TextBox();
+            this.lstPrefabs = new System.Windows.Forms.ListBox();
             this.bdsNpcSettings = new System.Windows.Forms.BindingSource(this.components);
+            this.btnAddCase = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudHearHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHearWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMoveSpeed)).BeginInit();
@@ -184,7 +185,7 @@
             // 
             this.trvStateTree.Location = new System.Drawing.Point(3, 211);
             this.trvStateTree.Name = "trvStateTree";
-            this.trvStateTree.Size = new System.Drawing.Size(391, 403);
+            this.trvStateTree.Size = new System.Drawing.Size(422, 374);
             this.trvStateTree.TabIndex = 47;
             // 
             // lblHear
@@ -325,32 +326,13 @@
             this.grpPrefabs.TabStop = false;
             this.grpPrefabs.Text = "PreFabs";
             // 
-            // lstPrefabs
+            // txtNewPrefab
             // 
-            this.lstPrefabs.FormattingEnabled = true;
-            this.lstPrefabs.Location = new System.Drawing.Point(6, 19);
-            this.lstPrefabs.Name = "lstPrefabs";
-            this.lstPrefabs.Size = new System.Drawing.Size(254, 95);
-            this.lstPrefabs.TabIndex = 1;
-            this.lstPrefabs.SelectedIndexChanged += new System.EventHandler(this.lstPrefabs_SelectedIndexChanged);
-            // 
-            // txtPrefabMatches
-            // 
-            this.txtPrefabMatches.Location = new System.Drawing.Point(6, 149);
-            this.txtPrefabMatches.Multiline = true;
-            this.txtPrefabMatches.Name = "txtPrefabMatches";
-            this.txtPrefabMatches.Size = new System.Drawing.Size(254, 248);
-            this.txtPrefabMatches.TabIndex = 3;
-            // 
-            // btnAddPrefab
-            // 
-            this.btnAddPrefab.Location = new System.Drawing.Point(6, 120);
-            this.btnAddPrefab.Name = "btnAddPrefab";
-            this.btnAddPrefab.Size = new System.Drawing.Size(75, 23);
-            this.btnAddPrefab.TabIndex = 4;
-            this.btnAddPrefab.Text = "Add New";
-            this.btnAddPrefab.UseVisualStyleBackColor = true;
-            this.btnAddPrefab.Click += new System.EventHandler(this.btnAddPrefab_Click);
+            this.txtNewPrefab.Location = new System.Drawing.Point(7, 144);
+            this.txtNewPrefab.Name = "txtNewPrefab";
+            this.txtNewPrefab.Size = new System.Drawing.Size(173, 20);
+            this.txtNewPrefab.TabIndex = 6;
+            this.txtNewPrefab.Visible = false;
             // 
             // btnRemovePrefab
             // 
@@ -362,22 +344,54 @@
             this.btnRemovePrefab.UseVisualStyleBackColor = true;
             this.btnRemovePrefab.Click += new System.EventHandler(this.btnRemovePrefab_Click);
             // 
-            // txtNewPrefab
+            // btnAddPrefab
             // 
-            this.txtNewPrefab.Location = new System.Drawing.Point(7, 144);
-            this.txtNewPrefab.Name = "txtNewPrefab";
-            this.txtNewPrefab.Size = new System.Drawing.Size(173, 20);
-            this.txtNewPrefab.TabIndex = 6;
-            this.txtNewPrefab.Visible = false;
+            this.btnAddPrefab.Location = new System.Drawing.Point(6, 120);
+            this.btnAddPrefab.Name = "btnAddPrefab";
+            this.btnAddPrefab.Size = new System.Drawing.Size(75, 23);
+            this.btnAddPrefab.TabIndex = 4;
+            this.btnAddPrefab.Text = "Add New";
+            this.btnAddPrefab.UseVisualStyleBackColor = true;
+            this.btnAddPrefab.Click += new System.EventHandler(this.btnAddPrefab_Click);
+            // 
+            // txtPrefabMatches
+            // 
+            this.txtPrefabMatches.Location = new System.Drawing.Point(6, 149);
+            this.txtPrefabMatches.Multiline = true;
+            this.txtPrefabMatches.Name = "txtPrefabMatches";
+            this.txtPrefabMatches.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtPrefabMatches.Size = new System.Drawing.Size(254, 248);
+            this.txtPrefabMatches.TabIndex = 3;
+            this.txtPrefabMatches.Leave += new System.EventHandler(this.txtPrefabMatches_Leave);
+            // 
+            // lstPrefabs
+            // 
+            this.lstPrefabs.FormattingEnabled = true;
+            this.lstPrefabs.Location = new System.Drawing.Point(6, 19);
+            this.lstPrefabs.Name = "lstPrefabs";
+            this.lstPrefabs.Size = new System.Drawing.Size(254, 95);
+            this.lstPrefabs.TabIndex = 1;
+            this.lstPrefabs.SelectedIndexChanged += new System.EventHandler(this.lstPrefabs_SelectedIndexChanged);
             // 
             // bdsNpcSettings
             // 
             this.bdsNpcSettings.DataSource = typeof(ConversationEditor.Models.NpcSettingsModel);
             // 
+            // btnAddCase
+            // 
+            this.btnAddCase.Location = new System.Drawing.Point(3, 591);
+            this.btnAddCase.Name = "btnAddCase";
+            this.btnAddCase.Size = new System.Drawing.Size(75, 23);
+            this.btnAddCase.TabIndex = 62;
+            this.btnAddCase.Text = "Add Case";
+            this.btnAddCase.UseVisualStyleBackColor = true;
+            this.btnAddCase.Click += new System.EventHandler(this.btnAddCase_Click);
+            // 
             // NpcSettingsUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnAddCase);
             this.Controls.Add(this.grpPrefabs);
             this.Controls.Add(this.lblAttacked);
             this.Controls.Add(this.lblLeaving);
@@ -457,5 +471,6 @@
         private System.Windows.Forms.Button btnRemovePrefab;
         private System.Windows.Forms.Button btnAddPrefab;
         private System.Windows.Forms.TextBox txtNewPrefab;
+        private System.Windows.Forms.Button btnAddCase;
     }
 }
